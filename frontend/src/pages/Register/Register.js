@@ -36,7 +36,6 @@ export default function Register() {
         } catch (err) {
             alert('Erro no cadastro, tente novamente.');
         }
-
     }
 
     return (
