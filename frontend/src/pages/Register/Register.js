@@ -21,11 +21,11 @@ export default function Register() {
         e.preventDefault();
 
         const data = {
-             name,
-             email,
-             whatsapp,
-             city,
-             uf
+            name,
+            email,
+            whatsapp,
+            city,
+            uf
         };
 
         try {

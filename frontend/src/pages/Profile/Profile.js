@@ -8,11 +8,13 @@ import { FiTrash2 } from 'react-icons/fi'
 import styles from './Profile.module.scss';
  
 export default function Profile() {
+    const ongName = localStorage.getItem('ongName');
+
     return (
         <div className={styles["container"]}>
             <header>
                 <img src={logoImg} alt="Be The Hero"/>
-                <span>Bem vinda, APAD</span>
+                <span>Bem vinda, {ongName}</span>
 
                 <Link to='/incidents/new' className="button">Cadastrar novo caso</Link>
                 <button type="button">
