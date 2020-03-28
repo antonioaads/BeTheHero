@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useHistory} from 'react-router-dom';
 
 import logoImg from '../../assets/logo.svg';
 import { FiPower } from 'react-icons/fi'
@@ -15,6 +15,12 @@ export default function Profile() {
     const ongName = localStorage.getItem('ongName');
     const ongId = localStorage.getItem('ongId');
 
+    const history = useHistory();
+
+    if(!ongName || !ongId){
+        history.push('/')
+    }
+
     useEffect(() => {
         api.get('profile', {
             headers: {
@@ -26,8 +32,8 @@ export default function Profile() {
     }, [ongId])
 
     async function handleDeleteIncident(id) {
-        var responseWarning = window.confirm("Realmente deseja remover este caso?");
-        if (responseWarning === false)
+        const responseConfirm = window.confirm("Realmente deseja remover este caso?");
+        if (!responseConfirm)
             return;
 
         try{
@@ -43,6 +49,16 @@ export default function Profile() {
         }
     }
 
+    function handleLogout() {
+        const responseConfirm = window.confirm("Realmente deseja sair?");
+        if (!responseConfirm)
+            return;
+
+        localStorage.clear();
+
+        history.push('/')
+    }
+
     return (
         <div className={styles["container"]}>
             <header>
@@ -50,7 +66,7 @@ export default function Profile() {
                 <span>Bem vinda, {ongName}</span>
 
                 <Link to='/incidents/new' className="button">Cadastrar novo caso</Link>
-                <button type="button">
+                <button onClick={handleLogout} type="button">
                     <FiPower size={18} color="#E02041" />
                 </button>
             </header>
